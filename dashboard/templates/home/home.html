@@ -1,0 +1,107 @@
+
+{% load static %}
+{% include 'home/base.html' %}
+{% include 'home/partials/header.html' %}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <p class="text-white mt-5 mb-5">Seja Bem-vindo, <b>Admin</b></p>
+        </div>
+    </div>
+    <!-- row -->
+    <div class="row tm-content-row">
+        <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+            <div class="tm-bg-primary-dark tm-block">
+                <h2 class="tm-block-title">Últimos Resultados</h2>
+                <canvas id="lineChart"></canvas>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+            <div class="tm-bg-primary-dark tm-block">
+                <h2 class="tm-block-title">Performance</h2>
+                <canvas id="barChart"></canvas>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+            <div class="tm-bg-primary-dark tm-block tm-block-taller">
+                <h2 class="tm-block-title">Armazenamento</h2>
+                <div id="pieChartContainer">
+                    <canvas id="pieChart" class="chartjs-render-monitor" width="200" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+            <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-overflow">
+                <h2 class="tm-block-title">Lista de Notificação</h2>
+                <div class="tm-notification-items">
+                    {% if notificacoes %}
+                    {% for notificacoes in notificacoes %}
+                    <div class="media tm-notification-item">
+                        <div class="tm-gray-circle"><img src="{% static 'home/images/user-1.png' %}" alt="Avatar Image"
+                                class="rounded-circle"></div>
+                                
+                        <div class="media-body">
+                            <p class="mb-2">  {{ notificacoes.vendedor }}  <a href="#"
+                                    class="tm-notification-link">{{notificacoes.descricao}}</a></p>
+                            <span class="tm-small tm-text-color-secondary">  {{notificacoes.tp_envio}}  </span>
+                        </div>
+                               
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-12 tm-block-col">
+            <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
+                <h2 class="tm-block-title">Lista de Pedidos</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">NO. PEDIDO</th>
+                            <th scope="col">STATUS</th>
+                            <th scope="col">OPERAÇÃO</th>
+                            <th scope="col">LOCALIZAÇÃO</th>
+                            <th scope="col">DISTANCIA</th>
+                            <th scope="col">DATA INICIAL</th>
+                            <th scope="col">ENDEREÇO DE ENTREGA</th>
+                        </tr>
+                    </thead>
+                   
+                    <tbody>
+                        {% if pedido %}
+                        {% for pedido in pedido %}
+                        <tr>
+                        
+                            <th scope="row"><b> {{ pedido.id }} </b></th>
+                            <td>
+                                <div class="tm-status-circle moving">
+                                </div>{{ pedido.STATUS }}
+                            </td>
+                            <td><b> {{ pedido.OPERACAO }} </b></td>
+                            <td><b> {{ pedido.LOCALIZACAO }} </b></td>
+                            <td><b> {{ pedido.DISTANCIA }} </b></td>
+                            <td> {{ pedido.DATA_INICIAL }} </td>
+                            <td> {{ pedido.ENDERECO_ENTREGA }} </td>
+                        
+                        </tr>
+                        
+                        {% endfor %}
+                        {% else %}
+                        {% endif %}
+                    </tbody>
+                   
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+ 
+
+    {% include 'home/partials/footer.html' %}
